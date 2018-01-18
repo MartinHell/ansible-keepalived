@@ -13,7 +13,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- name: restart keepalived
+- name: stop keepalived
   service:
     name: "{{ keepalived_service_name }}"
-    state: restarted
+    state: stopped
+    register: result
+    listen: restart keepalived
+
+- name: start keepalived
+  service:
+    name: "{{ keepalived_service_name }}"
+    state: started
+    when: result
+    listen: restart keepalived
