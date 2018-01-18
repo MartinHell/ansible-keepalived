@@ -17,7 +17,13 @@
   service:
     name: "{{ keepalived_service_name }}"
     state: stopped
+  register: wait
+  listen: restart keepalived
+
+- name: sleep for 2 seconds
+  wait_for: timeout=2
   register: result
+  when: wait
   listen: restart keepalived
 
 - name: start keepalived
