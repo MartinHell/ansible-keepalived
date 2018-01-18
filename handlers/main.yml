@@ -18,11 +18,11 @@
     name: "{{ keepalived_service_name }}"
     state: stopped
     register: result
-    listen: restart keepalived
+  listen: restart keepalived
 
 - name: start keepalived
   service:
     name: "{{ keepalived_service_name }}"
     state: started
     when: result
-    listen: restart keepalived
+  listen: restart keepalived
